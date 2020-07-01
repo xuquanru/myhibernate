@@ -13,12 +13,12 @@ import org.junit.Test;
  * 🍁 Program: myhibernate
  * 🍁 Description
  * 🍁 Author: Stephen
- * 🍁 Create: 2020-07-01 00:29
+ * 🍁 Create: 2020-07-01 09:56
  * 🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌行而不辍，未来可期🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌
  **/
-public class HIbernateDemo2 {
+public class HibernateDemo3 {
     @Test
-    public void testSqlSave() {
+    public void testSqlDelete() {
         SessionFactory sessionFactory = null;
         Session session = null;
         Transaction tx = null;
@@ -27,31 +27,12 @@ public class HIbernateDemo2 {
             sessionFactory = HibernateUtils.getSessionFactory();
             session = HibernateUtils.getSession();
             tx = session.beginTransaction();
-            Customer customer = new Customer();
-            customer.setCustName("百度");
-            customer.setCustLevel("vip1");
-            customer.setCustSource("网络1");
-            customer.setCustMobile("1101");
-            customer.setCustPhone("1301");
-
-            LinkMan linkMan = new LinkMan();
-            linkMan.setLkm_name("Lei");
-            linkMan.setLkm_gender("男");
-            linkMan.setLkm_phone("234");
-
-            LinkMan linkMan1 = new LinkMan();
-            linkMan1.setLkm_name("Luffy");
-            linkMan1.setLkm_gender("男");
-            linkMan1.setLkm_phone("2346");
-
-            //建立双向关系
-            customer.getLinksMans().add(linkMan);
-            customer.getLinksMans().add(linkMan1);
-            session.save(customer);
+            Customer customer = session.get(Customer.class, 5);
+            session.delete(customer);
             tx.commit();
         }catch (Exception e){
+            tx.rollback();
             e.printStackTrace();
         }
     }
-
 }

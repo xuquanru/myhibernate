@@ -43,15 +43,21 @@ public class HibernateDemo1 {
             linkMan.setLkm_gender("女");
             linkMan.setLkm_phone("1314");
 
+            LinkMan linkMan1 = new LinkMan();
+            linkMan1.setLkm_name("lucy1");
+            linkMan1.setLkm_gender("女");
+            linkMan1.setLkm_phone("13145");
             //建立双向关系
             customer.getLinksMans().add(linkMan);
+            customer.getLinksMans().add(linkMan1);
+
             linkMan.setCustomer(customer);
             session.save(customer);
             session.save(linkMan);
 
             tx.commit();
         }catch (Exception e){
-
+            e.printStackTrace();
         }
     }
 

@@ -20,7 +20,17 @@ public class Customer {
     private String custPhone;
     private String custMobile;
 
-
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "cid=" + cid +
+                ", custName='" + custName + '\'' +
+                ", custLevel='" + custLevel + '\'' +
+                ", custSource='" + custSource + '\'' +
+                ", custPhone='" + custPhone + '\'' +
+                ", custMobile='" + custMobile + '\'' +
+                '}';
+    }
 
     //第二步一个客户有多个联系人，hibernate 要求用Set集合
     //外来关联属性

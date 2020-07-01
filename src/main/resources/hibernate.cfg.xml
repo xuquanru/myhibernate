@@ -44,7 +44,8 @@
     <mapping resource="Customer.hbm.xml"/>
     <mapping resource="LinkMan.hbm.xml"/>
 
-
+    <mapping resource="BaseRole.hbm.xml"/>
+    <mapping resource="BaseUser.hbm.xml"/>
 
   </session-factory>
 </hibernate-configuration>

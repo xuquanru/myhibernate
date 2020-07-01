@@ -13,45 +13,32 @@ import org.junit.Test;
  * 🍁 Program: myhibernate
  * 🍁 Description
  * 🍁 Author: Stephen
- * 🍁 Create: 2020-07-01 00:29
+ * 🍁 Create: 2020-07-01 10:08
  * 🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌行而不辍，未来可期🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌
  **/
-public class HIbernateDemo2 {
+public class HibernateDemo4 {
     @Test
-    public void testSqlSave() {
+    public void testSqlUpdate() {
         SessionFactory sessionFactory = null;
         Session session = null;
         Transaction tx = null;
 
         try {
+            //就干一件事，把linkman 表的cid 修改下，却是操作了多步骤
+
             sessionFactory = HibernateUtils.getSessionFactory();
             session = HibernateUtils.getSession();
             tx = session.beginTransaction();
-            Customer customer = new Customer();
-            customer.setCustName("百度");
-            customer.setCustLevel("vip1");
-            customer.setCustSource("网络1");
-            customer.setCustMobile("1101");
-            customer.setCustPhone("1301");
+            Customer customer = session.get(Customer.class, 8);
+            LinkMan linkMan = session.get(LinkMan.class, 8);
 
-            LinkMan linkMan = new LinkMan();
-            linkMan.setLkm_name("Lei");
-            linkMan.setLkm_gender("男");
-            linkMan.setLkm_phone("234");
-
-            LinkMan linkMan1 = new LinkMan();
-            linkMan1.setLkm_name("Luffy");
-            linkMan1.setLkm_gender("男");
-            linkMan1.setLkm_phone("2346");
-
-            //建立双向关系
+            //设置持久态对象，他会双向维护外键，修改Customer一次，修改LinkMan一次，造成效率问题需要配置一的维护
             customer.getLinksMans().add(linkMan);
-            customer.getLinksMans().add(linkMan1);
-            session.save(customer);
+            linkMan.setCustomer(customer);
             tx.commit();
         }catch (Exception e){
+            tx.rollback();
             e.printStackTrace();
         }
     }
-
 }
