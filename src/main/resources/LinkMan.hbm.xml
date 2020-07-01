@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.xqrcloud.entity.LinkMan" table="linkman" schema="hibernate">
+        <id name="lkm_id">
+            <column name="lkm_id" sql-type="int(11)"/>
+            <generator class="native"></generator>
+        </id>
+        <property name="lkm_name">
+            <column name="lkm_name" sql-type="varchar(16)" not-null="true"/>
+        </property>
+        <property name="lkm_gender">
+            <column name="lkm_gender" sql-type="varchar(16)" not-null="true"/>
+        </property>
+        <property name="lkm_phone" >
+            <column name="lkm_phone" sql-type="varchar(16)" not-null="true"/>
+        </property>
+
+
+        <!--一个联系人只能有一个客户
+        name: 对应是联系属性
+        columm: 写外键
+        -->
+        <many-to-one  class="cn.xqrcloud.entity.Customer" name="customer" column="clid">
+
+        </many-to-one>
+
+    </class>
+</hibernate-mapping>   

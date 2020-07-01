@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.xqrcloud.entity.Customer" table="customer" schema="hibernate">
+        <id name="cid">
+            <column name="id" sql-type="int(11)"/>
+            <generator class="native"></generator>
+        </id>
+        <property name="custName">
+            <column name="name" sql-type="varchar(16)" length="16" not-null="true"/>
+        </property>
+        <property name="custLevel">
+            <column name="custLevel" sql-type="varchar(16)" length="16" not-null="true"/>
+        </property>
+        <property name="custSource">
+            <column name="custSource" sql-type="varchar(16)" length="16" not-null="true"/>
+        </property>
+        <property name="custMobile">
+            <column name="custMobile" sql-type="varchar(16)" length="16" not-null="true"/>
+        </property>
+
+
+<!--set 设置所有联系人,key需要两个表都维护外键-->
+<!--        <set name="linksMans">-->
+<!--            &lt;!&ndash;clid 自己取的名字,但是要和多的一方的hbm配对&ndash;&gt;-->
+<!--            <key column="clid"></key>-->
+<!--            &lt;!&ndash;设置多的一方实体&ndash;&gt;-->
+<!--            <one-to-many class="cn.xqrcloud.entity.LinkMan"/>-->
+<!--        </set>-->
+
+        <!--这个对应Hibernate2写法，简化版本-->
+        <set name="linksMans" cascade="save-update">
+            <key column="clid"> </key>
+            <one-to-many class="cn.xqrcloud.entity.LinkMan"></one-to-many>
+        </set>
+
+    </class>
+</hibernate-mapping>   
