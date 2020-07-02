@@ -1,4 +1,4 @@
-package cn.xqrcloud.demo.day06;
+package cn.xqrcloud.demo.day09;
 
 import cn.xqrcloud.demo.day01.HibernateUtils;
 import cn.xqrcloud.entity.Customer;
@@ -6,21 +6,19 @@ import cn.xqrcloud.entity.LinkMan;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import org.junit.Test;
 
-import java.util.List;
 import java.util.Set;
 
 /**
  * 🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌道阻且长，行则将至🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌
  * 🍁 Program: myhibernate
- * 🍁 Description HQL
+ * 🍁 Description HQL左外连接
  * 🍁 Author: Stephen
  * 🍁 Create: 2020-07-01 23:58
  * 🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌行而不辍，未来可期🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌
  **/
-public class HibernateDemo2 {
+public class HibernateDemo1 {
     @Test
     public void testSelect1(){
         SessionFactory sessionFactory = null;
@@ -29,17 +27,20 @@ public class HibernateDemo2 {
 
 
         try {
+
             session = HibernateUtils.getSession();
             tx=session.beginTransaction();
-            Query from_customer = session.createQuery("from Customer  where  cid=?1 and custName like ?2 ");
-            from_customer.setParameter(1, 8);
-            from_customer.setParameter(2, "%大客户%");
-            //设置？号值，第一个？号是位置值，新的现在从1开始
-            List<Customer> list = from_customer.list();
-            list.forEach(customer -> System.err.println(customer));
-            tx.commit();
+            Customer load = session.load(Customer.class, 8);
+            //load 对象不会马上发送sql,但是会得到ID值
+            //当要获取其他值时候那么他才会去获得值
+            System.err.println(load.getCid());
+            System.err.println(load.getCustName());
+
+            //延迟加载其他属性
+            Set<LinkMan> linksMans = load.getLinksMans();
+            System.err.println(linksMans.size());
+
         }catch (Exception ex){
-            ex.printStackTrace();
             tx.rollback();
         }finally{
             session.close();

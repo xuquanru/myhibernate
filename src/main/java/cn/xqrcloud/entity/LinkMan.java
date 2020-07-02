@@ -14,6 +14,17 @@ public class LinkMan {
     private String lkm_gender;
     private String lkm_phone;
 
+    @Override
+    public String toString() {
+        return "LinkMan{" +
+                "lkm_id=" + lkm_id +
+                ", lkm_name='" + lkm_name + '\'' +
+                ", lkm_gender='" + lkm_gender + '\'' +
+                ", lkm_phone='" + lkm_phone + '\'' +
+                ", customer=" + customer +
+                '}';
+    }
+
     //联系人一个的话只能对应一个custom
     private Customer customer;
 

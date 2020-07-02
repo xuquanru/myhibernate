@@ -1,16 +1,16 @@
 package cn.xqrcloud.demo.day06;
 
 import cn.xqrcloud.demo.day01.HibernateUtils;
+import cn.xqrcloud.entity.BaseRole;
 import cn.xqrcloud.entity.Customer;
-import cn.xqrcloud.entity.LinkMan;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.junit.Test;
 
+import javax.management.relation.Role;
 import java.util.List;
-import java.util.Set;
 
 /**
  * 🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌道阻且长，行则将至🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌
@@ -20,7 +20,7 @@ import java.util.Set;
  * 🍁 Create: 2020-07-01 23:58
  * 🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌行而不辍，未来可期🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌🐌
  **/
-public class HibernateDemo2 {
+public class HibernateDemo3 {
     @Test
     public void testSelect1(){
         SessionFactory sessionFactory = null;
@@ -31,12 +31,15 @@ public class HibernateDemo2 {
         try {
             session = HibernateUtils.getSession();
             tx=session.beginTransaction();
-            Query from_customer = session.createQuery("from Customer  where  cid=?1 and custName like ?2 ");
-            from_customer.setParameter(1, 8);
-            from_customer.setParameter(2, "%大客户%");
-            //设置？号值，第一个？号是位置值，新的现在从1开始
-            List<Customer> list = from_customer.list();
-            list.forEach(customer -> System.err.println(customer));
+            Query roles = session.createQuery("from BaseRole ");
+            //设置分页数据的开始位置
+            roles.setFirstResult(0);
+            //每页记录数据
+            roles.setMaxResults(2);
+            List<BaseRole> list = roles.list();
+            for (BaseRole role : list) {
+                System.err.println(role);
+            }
             tx.commit();
         }catch (Exception ex){
             ex.printStackTrace();

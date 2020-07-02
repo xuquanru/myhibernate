@@ -15,7 +15,12 @@
             <column name="user_password" sql-type="varchar(16)" not-null="true"/>
         </property>
 
-        <set name="roles" table="user_role" cascade="save-update,delete">
+<!--        fetch="select" lazy="true" 是默认值-->
+        <!--        fetch="select" lazy="false" 这个get时候就会发送SQL-->
+        <!--        fetch="select" lazy="extra" 假如你要查询统计记录，他只会执行count 不会执行其他语句-->
+
+
+        <set name="roles" table="user_role" fetch="select" lazy="extra" cascade="save-update,delete">
             <!--当前映射文件，第三张表名字-->
             <key column="userid"></key>
             <many-to-many class="cn.xqrcloud.entity.BaseRole" column="roleid"></many-to-many>

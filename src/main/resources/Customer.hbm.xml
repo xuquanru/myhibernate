@@ -35,7 +35,7 @@
 
         <!--这个对应Hibernate2写法，简化版本,save-update用来级联保存，delete-->
         <!--inverse为false 默认不放弃关系维护true 放弃关系维护-->
-        <set name="linksMans" cascade="save-update,delete" inverse="true">
+        <set name="linksMans" cascade="save-update,delete" inverse="true"  batch-size="2">
             <key column="clid"> </key>
             <one-to-many class="cn.xqrcloud.entity.LinkMan"></one-to-many>
         </set>

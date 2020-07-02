@@ -40,16 +40,16 @@ public class HibernateDemo1 {
             baseUser1.setUser_password("7890");
 
             BaseRole baseRole = new BaseRole();
-            baseRole.setRole_memo("总经理");
-            baseRole.setRole_name("总经理");
+            baseRole.setRole_memo("老师");
+            baseRole.setRole_name("老师");
 
             BaseRole baseRole1 = new BaseRole();
-            baseRole1.setRole_memo("秘书");
-            baseRole1.setRole_name("秘书");
+            baseRole1.setRole_memo("教授");
+            baseRole1.setRole_name("教授");
 
             BaseRole baseRole2 = new BaseRole();
-            baseRole2.setRole_memo("保安");
-            baseRole2.setRole_name("保安");
+            baseRole2.setRole_memo("学生");
+            baseRole2.setRole_name("学生");
 
             baseUser.getRoles().add(baseRole);
             baseUser.getRoles().add(baseRole1);
